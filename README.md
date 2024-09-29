@@ -7,7 +7,7 @@ This is a simple command-line to-do list application written in Python. It allow
 - Add new tasks to the to-do list
 - View all tasks
 - Delete tasks by their number
-- Save tasks to a file (`tasks.txt`)
+- Save tasks to a file
 - Simple and user-friendly command-line interface
 
 ## Technologies Used
