@@ -1,0 +1,72 @@
+import os
+
+# Function to load tasks from a file
+def load_tasks(filename):
+    if os.path.exists(filename):
+        with open(filename, 'r') as file:
+            tasks = file.read().splitlines()  # Read the file as a list of tasks
+    else:
+        tasks = []
+    return tasks
+
+# Function to save tasks to a file
+def save_tasks(filename, tasks):
+    with open(filename, 'w') as file:
+        for task in tasks:
+            file.write(task + '\n')
+
+# Function to display the menu
+def show_menu():
+    print("\nTo-Do List:")
+    print("1. View tasks")
+    print("2. Add task")
+    print("3. Delete task")
+    print("4. Exit")
+
+# Main function
+def main():
+    filename = 'tasks.txt'  # File to store tasks
+    tasks = load_tasks(filename)
+
+    while True:
+        show_menu()
+        choice = input("\nEnter your choice (1-4): ")
+
+        if choice == '1':
+            if not tasks:
+                print("\nYour to-do list is empty!")
+            else:
+                print("\nYour to-do list:")
+                for index, task in enumerate(tasks, start=1):
+                    print(f"{index}. {task}")
+
+        elif choice == '2':
+            new_task = input("Enter a new task: ")
+            tasks.append(new_task)
+            save_tasks(filename, tasks)
+            print(f"Task '{new_task}' added to the list.")
+
+        elif choice == '3':
+            if not tasks:
+                print("\nNo tasks to delete.")
+            else:
+                try:
+                    task_number = int(input("Enter the task number to delete: ")) - 1
+                    if 0 <= task_number < len(tasks):
+                        removed_task = tasks.pop(task_number)
+                        save_tasks(filename, tasks)
+                        print(f"Task '{removed_task}' removed.")
+                    else:
+                        print("Invalid task number.")
+                except ValueError:
+                    print("Please enter a valid number.")
+
+        elif choice == '4':
+            print("Exiting the to-do list. Goodbye!")
+            break
+
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+if __name__ == "__main__":
+    main()
